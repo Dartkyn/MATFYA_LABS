@@ -1,0 +1,23 @@
+void fun(short int k, long int b)
+// Блок
+{
+	long int t;
+	k = b*2;
+	b= k+3+b;
+	if (t != 10)
+	{
+	}
+}
+void fun1(short int x)
+{}
+short int fun2 = 2, a;
+int main()
+{
+	short int fun5 = fun5 + 1;
+	{short int a,b,c;}
+	{}
+	short int c=a*3;
+	fun(2 3 4 5);
+	fun(2); fun(a+fun);
+}
+
