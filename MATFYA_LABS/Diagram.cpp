@@ -1,11 +1,11 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
 #include  "defs.h"
 #include  "Scaner.h"
 #include "Semant.h"
 #include  "Diagram.h"
 
 void Diagram::Program()
-// программа
+// РїСЂРѕРіСЂР°РјРјР°
 {
 	TypeLex l;
 	int t, uk1, uk2;
@@ -29,7 +29,7 @@ void Diagram::Program()
 }
 
 void Diagram::Funct()
-//функции				   
+//С„СѓРЅРєС†РёРё				   
 {
 	TypeLex l;
 	int t, uk1, uk2;
@@ -44,18 +44,18 @@ void Diagram::Funct()
 		t = sc->Scaner(l);
 		if (t != Tmain)
 		{
-			sc->PrintError("Ожидался символ main", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» main", l, sc->GetUKS());
 		}
 		v = root->SemIncludeFunct(l, type);
 		t = sc->Scaner(l);
 		if (t != TBraceOp)
 		{
-			sc->PrintError("Ожидался символ (", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» (", l, sc->GetUKS());
 		}
 		t = sc->Scaner(l);
 		if (t != TBraceCl)
 		{
-			sc->PrintError("Ожидался символ )", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» )", l, sc->GetUKS());
 		}
 	}
 	else
@@ -68,20 +68,20 @@ void Diagram::Funct()
 			t = sc->Scaner(l);
 			if (t != TIdent)
 			{
-				sc->PrintError("Ожидался идентификатор", l, sc->GetUKS());
+				sc->PrintError("РћР¶РёРґР°Р»СЃСЏ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ", l, sc->GetUKS());
 			}
 			v = root->SemIncludeFunct(l, type);
 			t = sc->Scaner(l);
 			if (t != TBraceOp)
 			{
-				sc->PrintError("Ожидался символ (", l, sc->GetUKS());
+				sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» (", l, sc->GetUKS());
 			}
 			int pm=Param();
 			root->SemSetParam(v, pm);
 			t = sc->Scaner(l);
 			if (t != TBraceCl)
 			{
-				sc->PrintError("Ожидался символ )", l, sc->GetUKS());
+				sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» )", l, sc->GetUKS());
 			}
 		}
 	Block();
@@ -90,7 +90,7 @@ void Diagram::Funct()
 
 int Diagram::Param()
 {
-	//параметры функции
+	//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё
 	TypeLex l;
 	int t, uk1, uk2,pm=0;
 	DATA_TYPE type;
@@ -100,18 +100,18 @@ int Diagram::Param()
 		t = sc->Scaner(l);
 		if ((t != Tsint) && (t != Tlint))
 		{
-			sc->PrintError("Ожидался символ short или long", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» short РёР»Рё long", l, sc->GetUKS());
 		}
 		type = root->SemGetDataType(t);
 		t = sc->Scaner(l);
 		if (t != Tint)
 		{
-			sc->PrintError("Ожидался символ  int", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР»  int", l, sc->GetUKS());
 		}
 		t = sc->Scaner(l);
 		if (t != TIdent)
 		{
-			sc->PrintError("Ожидался идентификатор", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ", l, sc->GetUKS());
 		}
 		root->SemIncludeVar(l, type);
 		pm++;
@@ -124,7 +124,7 @@ int Diagram::Param()
 	return pm;
 }
 void Diagram::Data()
-// описание данных
+// РѕРїРёСЃР°РЅРёРµ РґР°РЅРЅС‹С…
 {
 	TypeLex l;
 	DATA_TYPE type, type1;
@@ -136,7 +136,7 @@ void Diagram::Data()
 		t = sc->Scaner(l);
 		if (t != Tint)
 		{
-			sc->PrintError("Ожидался символ int", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» int", l, sc->GetUKS());
 		}
 		
 		do {
@@ -145,7 +145,7 @@ void Diagram::Data()
 			t = sc->Scaner(l);
 			if (t != TIdent)
 			{
-				sc->PrintError("Ожидался идентификатор", l, sc->GetUKS());
+				sc->PrintError("РћР¶РёРґР°Р»СЃСЏ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ", l, sc->GetUKS());
 			}
 			root->SemIncludeVar(l, type);
 			uk1 = sc->GetUK();
@@ -156,7 +156,7 @@ void Diagram::Data()
 				/*t = sc->Scaner(l);
 				if (t != TCons10)
 				{
-					sc->PrintError("Ожидалась константа", l, sc->GetUKS());
+					sc->PrintError("РћР¶РёРґР°Р»Р°СЃСЊ РєРѕРЅСЃС‚Р°РЅС‚Р°", l, sc->GetUKS());
 				}*/
 				type1 = Expression();
 				uk1 = sc->GetUK();
@@ -167,20 +167,20 @@ void Diagram::Data()
 		} while (t == TComm);
 		if (t != TSecolon)
 		{
-			sc->PrintError("Ожидается ;", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°РµС‚СЃСЏ ;", l, sc->GetUKS());
 		}
 	}
 }
 
 void Diagram::Block()
-// Блок
+// Р‘Р»РѕРє
 {
 	TypeLex l;
 	int t, uk1, uk2;
 	t = sc->Scaner(l);
 	if (t != TBracketOp)
 	{
-		sc->PrintError("Ожидался  символ {", l, sc->GetUKS());
+		sc->PrintError("РћР¶РёРґР°Р»СЃСЏ  СЃРёРјРІРѕР» {", l, sc->GetUKS());
 	}
 	Tree *vb = root->SemIncludeBlock();
 	uk1 = sc->GetUK();
@@ -208,12 +208,12 @@ void Diagram::Block()
 	t = sc->Scaner(l);
 	if (t != TBracketCl)
 	{
-		sc->PrintError("Ожидался  символ }", l, sc->GetUKS());
+		sc->PrintError("РћР¶РёРґР°Р»СЃСЏ  СЃРёРјРІРѕР» }", l, sc->GetUKS());
 	}
 }
 
 void Diagram::Operator()
-// Оператор
+// РћРїРµСЂР°С‚РѕСЂ
 {
 	TypeLex  l, a;
 	int  t, uk1, uk2;
@@ -222,7 +222,7 @@ void Diagram::Operator()
 	uk2 = sc->GetUKS();
 	t = sc->Scaner(l);
 	if (t == TSecolon)
-		return;  //  пустой  оператор
+		return;  //  РїСѓСЃС‚РѕР№  РѕРїРµСЂР°С‚РѕСЂ
 	if (t == Tif)
 	{
 		sc->PutUK(uk1);
@@ -246,7 +246,7 @@ void Diagram::Operator()
 		{
 			if (t != TBraceOp)
 			{
-				sc->PrintError("Ожидался символ (", l, sc->GetUKS());
+				sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» (", l, sc->GetUKS());
 			}
 			Tree *v = root->SemGetFunct(a);
 			int ct=0;
@@ -257,7 +257,7 @@ void Diagram::Operator()
 				t = sc->Scaner(l);
 				/*if (t != TIdent)
 				{
-					sc->PrintError("Ожидался идентификатор", l, sc->GetUKS());
+					sc->PrintError("РћР¶РёРґР°Р»СЃСЏ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ", l, sc->GetUKS());
 				}*/
 				type = Expression();
 				//Tree *vb = root->SemGetVar(l);
@@ -269,12 +269,12 @@ void Diagram::Operator()
 			root->SemControlParam(v, ct);
 			if (t != TBraceCl)
 			{
-				sc->PrintError("Ожидался символ )", l, sc->GetUKS());
+				sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» )", l, sc->GetUKS());
 			}
 			t = sc->Scaner(l);
 			if (t != TSecolon)
 			{
-				sc->PrintError("Ожидался символ ;", l, sc->GetUKS());
+				sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» ;", l, sc->GetUKS());
 			}
 			return;
 		}
@@ -286,7 +286,7 @@ void Diagram::Operator()
 }
 
 void Diagram::Assignment()
-// Присваивание	
+// РџСЂРёСЃРІР°РёРІР°РЅРёРµ	
 {
 	TypeLex l, a;
 	DATA_TYPE type;
@@ -295,13 +295,13 @@ void Diagram::Assignment()
 	t = sc->Scaner(l);
 	if (t != TIdent)
 	{
-		sc->PrintError("Ожидался  идентификатор", l, sc->GetUKS());
+		sc->PrintError("РћР¶РёРґР°Р»СЃСЏ  РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ", l, sc->GetUKS());
 	}
 	strcpy(a, l);
 	t = sc->Scaner(l);
 	if (t != TAssign)
 	{
-		sc->PrintError("Ожидался символ =", l, sc->GetUKS());
+		sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» =", l, sc->GetUKS());
 	}
 	else
 	{
@@ -310,7 +310,7 @@ void Diagram::Assignment()
 		t = sc->Scaner(l);
 		if (t != TSecolon)
 		{
-			sc->PrintError("Ожидался символ ;", l, sc->GetUKS());
+			sc->PrintError("РћР¶РёРґР°Р»СЃСЏ СЃРёРјРІРѕР» ;", l, sc->GetUKS());
 		}
 	}
 }
@@ -323,18 +323,18 @@ void Diagram::If()
 	t = sc->Scaner(l);
 	if (t != Tif)
 	{
-		sc->PrintError("Ожидался  символ if", l, sc->GetUKS());
+		sc->PrintError("РћР¶РёРґР°Р»СЃСЏ  СЃРёРјРІРѕР» if", l, sc->GetUKS());
 	}
 	t = sc->Scaner(l);
 	if (t != TBraceOp)
 	{
-		sc->PrintError("Ожидался  символ (", l, sc->GetUKS());
+		sc->PrintError("РћР¶РёРґР°Р»СЃСЏ  СЃРёРјРІРѕР» (", l, sc->GetUKS());
 	}
 	Expression();
 	t = sc->Scaner(l);
 	if (t != TBraceCl)
 	{
-		sc->PrintError("Ожидался  символ )", l, sc->GetUKS());
+		sc->PrintError("РћР¶РёРґР°Р»СЃСЏ  СЃРёРјРІРѕР» )", l, sc->GetUKS());
 	}
 	Operator();
 	uk1 = sc->GetUK();
@@ -350,7 +350,7 @@ void Diagram::If()
 }
 
 DATA_TYPE Diagram::Expression()
-// Выражение
+// Р’С‹СЂР°Р¶РµРЅРёРµ
 {
 	TypeLex  l;
 	int  t, uk1, uk2;
@@ -359,7 +359,7 @@ DATA_TYPE Diagram::Expression()
 	uk1 = sc->GetUK();
 	uk2 = sc->GetUKS();
 	t = sc->Scaner(l);
-	while ((t <= TNotEqual) && (t >= TMore))  //  знаки  сравнения  стоят  подряд
+	while ((t <= TNotEqual) && (t >= TMore))  //  Р·РЅР°РєРё  СЃСЂР°РІРЅРµРЅРёСЏ  СЃС‚РѕСЏС‚  РїРѕРґСЂСЏРґ
 	{
 		type1 = Calc();
 		type = root->SemResultOperation(type, type1, t);
@@ -373,7 +373,7 @@ DATA_TYPE Diagram::Expression()
 }
 
 DATA_TYPE Diagram::Calc()
-//	Подсчет сдвигом
+//	РџРѕРґСЃС‡РµС‚ СЃРґРІРёРіРѕРј
 {
 	TypeLex  l;
 	int  t, uk1, uk2;
@@ -395,7 +395,7 @@ DATA_TYPE Diagram::Calc()
 	return type;
 }
 DATA_TYPE Diagram::Arithmetic()
-// Арифметика
+// РђСЂРёС„РјРµС‚РёРєР°
 {
 	TypeLex  l;
 	int  t, uk1, uk2;
@@ -418,7 +418,7 @@ DATA_TYPE Diagram::Arithmetic()
 }
 
 DATA_TYPE Diagram::Mul_div()
-// Умножение/деление
+// РЈРјРЅРѕР¶РµРЅРёРµ/РґРµР»РµРЅРёРµ
 {
 	TypeLex  l;
 	int  t, uk1, uk2;
@@ -441,7 +441,7 @@ DATA_TYPE Diagram::Mul_div()
 }
 
 DATA_TYPE Diagram::Bracket()
-// Скобки
+// РЎРєРѕР±РєРё
 {
 	TypeLex  l;
 	int  t, uk1, uk2;
@@ -457,7 +457,7 @@ DATA_TYPE Diagram::Bracket()
 		t = sc->Scaner(l);
 		if (t != TBraceCl)
 		{
-			sc->PrintError("ожидался  символ  )", l, sc->GetUKS());
+			sc->PrintError("РѕР¶РёРґР°Р»СЃСЏ  СЃРёРјРІРѕР»  )", l, sc->GetUKS());
 		}
 		return type;
 	}
@@ -468,7 +468,7 @@ DATA_TYPE Diagram::Bracket()
 	}
 	else
 	 {
-		sc->PrintError("ожидался  идентификатор или константа, или выражение", l, sc->GetUKS());
+		sc->PrintError("РѕР¶РёРґР°Р»СЃСЏ  РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РёР»Рё РєРѕРЅСЃС‚Р°РЅС‚Р°, РёР»Рё РІС‹СЂР°Р¶РµРЅРёРµ", l, sc->GetUKS());
 	}
 	
 }

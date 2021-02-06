@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include <stdio.h>
 #include <string.h>
 #include "defs.h"
@@ -9,8 +9,8 @@ int main(int argc, char * argv[]) {
 	setlocale(LC_ALL, "Russian");
 	TScaner * sc;
 	int type; TypeLex l;
-	if (argc <= 1) sc = new TScaner("input.txt");// Ù‡ÈÎ ÔÓ ÛÏÓÎ˜‡ÌË˛
-	else sc = new TScaner(argv[1]); // Á‡‰‡ÌÌ˚È Ù‡ÈÎ
+	if (argc <= 1) sc = new TScaner("input.txt");// —Ñ–∞–π–ª –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
+	else sc = new TScaner(argv[1]); // –∑–∞–¥–∞–Ω–Ω—ã–π —Ñ–∞–π–ª
 	Tree *root = new Tree();
 	root->SetCur(root);
 	Diagram *dg = new Diagram(sc, root);
@@ -18,9 +18,9 @@ int main(int argc, char * argv[]) {
 	root->Print();
 	type = sc->Scaner(l);
 	if (type == TEnd)
-		printf("—ËÌÚ‡ÍÒË˜ÂÒÍËı  Ó¯Ë·ÓÍ  ÌÂ  Ó·Ì‡ÛÊÂÌÓ.  \n");
+		printf("‚Äî–∏–Ω—Ç–∞–∫—Å–∏—á–µ—Å–∫–∏—Ö  –æ—à–∏–±–æ–∫  –Ω–µ  –æ–±–Ω–∞—Ä—É–∂–µ–Ω–æ.  \n");
 	else
-		sc->PrintError("ÀË¯ÌËÈ  ÚÂÍÒÚ  ‚  ÍÓÌˆÂ  ÔÓ„‡ÏÏ˚.", "");
+		sc->PrintError("–ã–∏—à–Ω–∏–π  —Ç–µ–∫—Å—Ç  –≤  –∫–æ–Ω—Ü–µ  –ø—Ä–æ–≥—Ä–∞–º–º—ã.", "");
 	system("pause");
 	return 0;
 }

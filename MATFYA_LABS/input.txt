@@ -1,4 +1,4 @@
-void fun(short int k, long int b)
+﻿void fun(short int k, long int b)
 // Блок
 {
 	long int t;

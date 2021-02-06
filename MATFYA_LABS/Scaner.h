@@ -1,11 +1,11 @@
-#pragma once
+п»ї#pragma once
 #ifndef __SCANER
 #define __SCANER
 #include "defs.h"
 class TScaner {
 private:
-	TypeMod t; // исходный текст
-	int uk; // указатель текущей позиции в исходном тексте
+	TypeMod t; // РёСЃС…РѕРґРЅС‹Р№ С‚РµРєСЃС‚
+	int uk; // СѓРєР°Р·Р°С‚РµР»СЊ С‚РµРєСѓС‰РµР№ РїРѕР·РёС†РёРё РІ РёСЃС…РѕРґРЅРѕРј С‚РµРєСЃС‚Рµ
 	int uks;
 public:
 	void PutUK(int i);

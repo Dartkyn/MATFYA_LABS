@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #ifndef  __DIAGRAM
 #define  __DIAGRAM
 #include "Semant.h"
@@ -10,18 +10,18 @@ private:
 public:
 	Diagram(TScaner  *  s, Tree *r) { sc = s; root = r;}
 	~Diagram() {}
-	void Program();			// программа
-	void Funct();			// одно описание
-	void Data();			// описание данных
-	void Block();			// блок
-	void Operator();		// оператор
-	void Assignment();		// присваивание
+	void Program();			// РїСЂРѕРіСЂР°РјРјР°
+	void Funct();			// РѕРґРЅРѕ РѕРїРёСЃР°РЅРёРµ
+	void Data();			// РѕРїРёСЃР°РЅРёРµ РґР°РЅРЅС‹С…
+	void Block();			// Р±Р»РѕРє
+	void Operator();		// РѕРїРµСЂР°С‚РѕСЂ
+	void Assignment();		// РїСЂРёСЃРІР°РёРІР°РЅРёРµ
 	void If();			    // if
-	int Param();			// параметры функции
-	DATA_TYPE Expression();		// выражение
-	DATA_TYPE Calc();			// подсчет
-	DATA_TYPE Arithmetic();		// арифметика
-	DATA_TYPE Mul_div();			// умножение/деление
-	DATA_TYPE Bracket();			// скобки
+	int Param();			// РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё
+	DATA_TYPE Expression();		// РІС‹СЂР°Р¶РµРЅРёРµ
+	DATA_TYPE Calc();			// РїРѕРґСЃС‡РµС‚
+	DATA_TYPE Arithmetic();		// Р°СЂРёС„РјРµС‚РёРєР°
+	DATA_TYPE Mul_div();			// СѓРјРЅРѕР¶РµРЅРёРµ/РґРµР»РµРЅРёРµ
+	DATA_TYPE Bracket();			// СЃРєРѕР±РєРё
 };
 #endif
