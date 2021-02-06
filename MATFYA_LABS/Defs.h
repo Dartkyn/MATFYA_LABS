@@ -1,20 +1,20 @@
-#pragma once
+п»ї#pragma once
 #ifndef __DEFS
 #define __DEFS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_TEXT 10000 // максимальная длина текста
-#define MAX_LEX 20 // максимальная длина лексемы
-#define MAX_KEYW 8 // число ключевых слов
+#define MAX_TEXT 10000 // РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° С‚РµРєСЃС‚Р°
+#define MAX_LEX 20 // РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° Р»РµРєСЃРµРјС‹
+#define MAX_KEYW 8 // С‡РёСЃР»Рѕ РєР»СЋС‡РµРІС‹С… СЃР»РѕРІ
 typedef char TypeLex[MAX_LEX];
 typedef char TypeMod[MAX_TEXT];
 
-// идентификаторы и константы
+// РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ Рё РєРѕРЅСЃС‚Р°РЅС‚С‹
 #define TIdent 1
 #define TCons10 10 //10 c/c
 #define TCons16 11 //16 c/c
-// ключевые слова
+// РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°
 #define Tmain 20 
 #define Tvoid 21
 #define Tsint 22	//short int
@@ -22,7 +22,7 @@ typedef char TypeMod[MAX_TEXT];
 #define Tif 24
 #define Telse 25
 #define Tint 26
-// знаки операций
+// Р·РЅР°РєРё РѕРїРµСЂР°С†РёР№
 #define TAdd 30 //+
 #define TSub 31	//-
 #define TMult 32	//*
@@ -36,16 +36,16 @@ typedef char TypeMod[MAX_TEXT];
 #define TNotEqual 40	// !=
 #define TShiftL 41		// <<	
 #define TShiftR 42		//>>
-// специальные знаки
+// СЃРїРµС†РёР°Р»СЊРЅС‹Рµ Р·РЅР°РєРё
 #define TComm 50		// ,
 #define TSecolon 51		// ;
-// знаки скобок
+// Р·РЅР°РєРё СЃРєРѕР±РѕРє
 #define TBraceOp 60		// (
 #define TBraceCl 61		// )
 #define TBracketOp 62	// {
 #define TBracketCl 63	// }
-// конец исходного модуля
+// РєРѕРЅРµС† РёСЃС…РѕРґРЅРѕРіРѕ РјРѕРґСѓР»СЏ
 #define TEnd 100
-// ошибочный символ
+// РѕС€РёР±РѕС‡РЅС‹Р№ СЃРёРјРІРѕР»
 #define TErr 666
 #endif
