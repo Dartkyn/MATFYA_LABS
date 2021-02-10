@@ -263,3 +263,359 @@ DATA_TYPE Tree::SemGetType(Tree *Addr)
 {
 	return Addr->n->dataType;
 }
+
+//
+void Tree::SubtreeRemoval(Tree* addr)
+{
+	if (addr == NULL)
+		return;
+	if (addr->Left != NULL)
+	{
+		SubtreeRemoval(addr->Left);
+	}
+	if (addr->Right != NULL)
+	{
+		SubtreeRemoval(addr->Right);
+	}
+	delete addr;
+}
+
+//
+int Tree::GetPosition(Tree* addr)
+{
+	return addr->n->position;
+}
+
+//
+void Tree::PutPosition(Tree* addr, int pos)
+{
+	addr->n->position = pos;
+}
+
+//
+void Tree::DeleteBlock()
+{
+	Tree* v = Cur->Up;
+	SubtreeRemoval(Cur);
+	Cur = v;
+	Cur->Left = NULL;
+}
+
+//
+Tree* Tree::CopyFunc()
+{
+	Tree* vLeft = Cur->Left;
+	Cur->SetLeft(Cur->n);
+	Cur = Cur->Left;
+	Node d;
+	memcpy(&d.id, &"", 2);
+	d.typeObject = EMPT;
+	Cur->SetRight(&d);
+	Cur->Left = vLeft;
+	Tree* v = Cur;
+	Cur = Cur->Right;
+	return v;
+}
+
+//
+void Tree::DeleteFunc()
+{
+	Cur = Cur->Up;
+	Tree* vUp = Cur->Up;
+	Tree* vLeft = Cur->Left;
+	delete Cur->Right;
+	delete Cur;
+	Cur = vUp;
+	Cur->Left = vLeft;
+}
+
+//
+TData Tree::SemResultOperation(TData t1, TData t2, int op)
+{
+	TData result;
+	/*if (op >= MMore && op <= MNonEqual)
+	{
+		result.dataType = TYPE_INTEGER64;
+		switch (op)
+		{
+		case MMore:
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 > t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+				{
+					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 > t2.dataValue.dataAsFloat;
+				}
+				else
+				{
+					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat > t2.dataValue.dataAsInt64;
+					}
+					else
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat > t2.dataValue.dataAsFloat;
+					}
+				}
+			}
+			break;
+		case MMoreOrEqual:
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 >= t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+				{
+					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 >= t2.dataValue.dataAsFloat;
+				}
+				else
+				{
+					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat >= t2.dataValue.dataAsInt64;
+					}
+					else
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat >= t2.dataValue.dataAsFloat;
+					}
+				}
+			}
+			break;
+		case MLess:
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 < t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+				{
+					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 < t2.dataValue.dataAsFloat;
+				}
+				else
+				{
+					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat < t2.dataValue.dataAsInt64;
+					}
+					else
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat < t2.dataValue.dataAsFloat;
+					}
+				}
+			}
+			break;
+		case MLessOrEqual:
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 <= t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+				{
+					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 <= t2.dataValue.dataAsFloat;
+				}
+				else
+				{
+					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat <= t2.dataValue.dataAsInt64;
+					}
+					else
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat <= t2.dataValue.dataAsFloat;
+					}
+				}
+			}
+			break;
+		case MEqual:
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 == t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+				{
+					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 == t2.dataValue.dataAsFloat;
+				}
+				else
+				{
+					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat == t2.dataValue.dataAsInt64;
+					}
+					else
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat == t2.dataValue.dataAsFloat;
+					}
+				}
+			}
+			break;
+		case MNonEqual:
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 != t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+				{
+					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 != t2.dataValue.dataAsFloat;
+				}
+				else
+				{
+					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat != t2.dataValue.dataAsInt64;
+					}
+					else
+					{
+						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat != t2.dataValue.dataAsFloat;
+					}
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	switch (op)
+	{
+	case MPlus:
+		if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+		{
+			result.dataType = TYPE_INTEGER64;
+			result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 + t2.dataValue.dataAsInt64;
+		}
+		else
+		{
+			result.dataType = TYPE_FLOAT;
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+			{
+				result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 + t2.dataValue.dataAsFloat;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+				{
+					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat + t2.dataValue.dataAsInt64;
+				}
+				else
+				{
+					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat + t2.dataValue.dataAsFloat;
+				}
+			}
+		}
+		break;
+	case MMinus:
+		if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+		{
+			result.dataType = TYPE_INTEGER64;
+			result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 - t2.dataValue.dataAsInt64;
+		}
+		else
+		{
+			result.dataType = TYPE_FLOAT;
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+			{
+				result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 - t2.dataValue.dataAsFloat;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+				{
+					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat - t2.dataValue.dataAsInt64;
+				}
+				else
+				{
+					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat - t2.dataValue.dataAsFloat;
+				}
+			}
+		}
+		break;
+	case MMult:
+		if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+		{
+			result.dataType = TYPE_INTEGER64;
+			result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 * t2.dataValue.dataAsInt64;
+		}
+		else
+		{
+			result.dataType = TYPE_FLOAT;
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+			{
+				result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 * t2.dataValue.dataAsFloat;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+				{
+					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat * t2.dataValue.dataAsInt64;
+				}
+				else
+				{
+					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat * t2.dataValue.dataAsFloat;
+				}
+			}
+		}
+		break;
+	case MDivide:
+		if (t2.dataValue.dataAsInt64 != 0 || t2.dataValue.dataAsFloat != 0)
+		{
+			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataType = TYPE_INTEGER64;
+				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 / t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				result.dataType = TYPE_FLOAT;
+				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
+				{
+					result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 / t2.dataValue.dataAsFloat;
+				}
+				else
+				{
+					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
+					{
+						result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat / t2.dataValue.dataAsInt64;
+					}
+					else
+					{
+						result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat / t2.dataValue.dataAsFloat;
+					}
+				}
+			}
+		}
+		else
+		{
+			sc->PrintError("Äåëåíèå íà 0");
+		}
+		break;
+	case MAssign:
+		result = t2;
+		if (t1.dataType != t2.dataType)
+		{
+			if (t2.dataType == TYPE_INTEGER64)
+			{
+				result.dataValue.dataAsFloat = (float)t2.dataValue.dataAsInt64;
+			}
+			else
+			{
+				result.dataValue.dataAsInt64 = (int)t2.dataValue.dataAsFloat;
+			}
+			result.dataType = t1.dataType;
+		}
+		break;
+	default:
+		break;
+	}*/
+	return result;
+}

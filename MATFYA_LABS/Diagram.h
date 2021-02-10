@@ -23,5 +23,7 @@ public:
 	DATA_TYPE Arithmetic();		// арифметика
 	DATA_TYPE Mul_div();			// умножение/деление
 	DATA_TYPE Bracket();			// скобки
+	bool SetFlagIntr();
+	bool GetFlagIntr();
 };
 #endif

@@ -10,6 +10,20 @@ struct Node //информация в вершине дерева
 	DATA_TYPE dataType; //тип значения
 	char *data;			//ссылка на значение или NULL
 	int param;		//количество параметров
+	int position;
+};
+
+union DataValue
+{
+	/*__int64 dataAsInt64;
+	__int64* arrayDataAsInt64;
+	float dataAsFloat;
+	float* arrayDataAsFloat; */
+};
+struct TData
+{
+	DATA_TYPE dataType;
+	DataValue dataValue;
 };
 
 class Tree //  элемент  семантической  таблицы
@@ -31,6 +45,7 @@ public:
 	Tree *FindRightLeft(Tree *From, TypeLex id);
 	Tree *FindUpOneLevel(Tree *From, TypeLex id);
 	void Print(void);
+	void SubtreeRemoval(Tree* addr);				//Удаление поддерева
 	void SetCur(Tree *a);						  //установить текущий узел дерева
 	Tree *GetCur(void);							  //получить значение текущего узла дерева
 	DATA_TYPE SemGetDataType(int a);			  //получить тип значения
@@ -45,5 +60,15 @@ public:
 	Tree *SemGetFunct(TypeLex a);				  //найти в таблице функцию с именем a и вернуть ссылку на соответствующий элемент дерева
 	int DupControl(Tree *Addr, TypeLex a);		  //проверка идентификатора а на повторное описание внутри блока
 	DATA_TYPE SemGetType(Tree *Addr);
+
+	int GetPosition(Tree* addr);					//Получение позиции
+	void PutPosition(Tree* addr, int pos);			//Установление позиции
+
+	void DeleteBlock();								//Удаление блока
+
+	Tree* CopyFunc();								//Копирование функции
+	void DeleteFunc();								//Удаление функции
+
+	TData SemResultOperation(TData t1, TData t2, int op); 
 };
 #endif 

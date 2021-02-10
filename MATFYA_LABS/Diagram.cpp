@@ -472,3 +472,13 @@ DATA_TYPE Diagram::Bracket()
 	}
 	
 }
+
+bool Diagram::SetFlagIntr()
+{
+	return true;
+}
+
+bool Diagram::GetFlagIntr()
+{
+	return false;
+}

@@ -18,9 +18,9 @@ int main(int argc, char * argv[]) {
 	root->Print();
 	type = sc->Scaner(l);
 	if (type == TEnd)
-		printf("—интаксических  ошибок  не  обнаружено.  \n");
+		printf("Синтаксических  ошибок  не  обнаружено.  \n");
 	else
-		sc->PrintError("Ћишний  текст  в  конце  программы.", "");
+		sc->PrintError("Лишний  текст  в  конце  программы.", "");
 	system("pause");
 	return 0;
 }
