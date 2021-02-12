@@ -5,25 +5,23 @@ enum TYPE_OBJECT { EMPT = 0, OBJ_VAR = 10, OBJ_FUNCT = 30 };
 
 struct Node //информация в вершине дерева
 {
-	TYPE_OBJECT typeObject;
-	TypeLex id;			//идентификатор объект
-	DATA_TYPE dataType; //тип значения
-	char *data;			//ссылка на значение или NULL
+	TYPE_OBJECT typeObject; 
+	TypeLex id;			//идентификатор объекта
+	TData data;			//данные
 	int param;		//количество параметров
-	int position;
+	int position;	//позиция тела функции
 };
 
 union DataValue
 {
-	/*__int64 dataAsInt64;
-	__int64* arrayDataAsInt64;
-	float dataAsFloat;
-	float* arrayDataAsFloat; */
+	short int dataAsSInt;		
+	long int dataAsLInt;
+
 };
 struct TData
 {
-	DATA_TYPE dataType;
-	DataValue dataValue;
+	DATA_TYPE dataType;			//тип значения
+	DataValue dataValue;		//само значение
 };
 
 class Tree //  элемент  семантической  таблицы
