@@ -1,20 +1,11 @@
-﻿  stdafx.cpp
+﻿  Diagram.cpp
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(242,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(307,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(299,12): warning C4101: type: неиспользованная локальная переменная
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(454,15): warning C4101: uk2: неиспользованная локальная переменная
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(454,10): warning C4101: uk1: неиспользованная локальная переменная
   Semant.cpp
-z:\my files\study\matfya\matfya_labs\matfya_labs\semant.cpp(147): warning C4101: v: неиспользованная локальная переменная
-  Scaner.cpp
-z:\my files\study\matfya\matfya_labs\matfya_labs\scaner.cpp(187): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note:  см. объявление "fopen"
-z:\my files\study\matfya\matfya_labs\matfya_labs\scaner.cpp(192): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1193): note:  см. объявление "fscanf"
-  MATFYA_LABS.cpp
-  Diagram.cpp
-z:\my files\study\matfya\matfya_labs\matfya_labs\diagram.cpp(235): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note:  см. объявление "strcpy"
-z:\my files\study\matfya\matfya_labs\matfya_labs\diagram.cpp(300): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note:  см. объявление "strcpy"
-z:\my files\study\matfya\matfya_labs\matfya_labs\diagram.cpp(292): warning C4101: type: неиспользованная локальная переменная
-z:\my files\study\matfya\matfya_labs\matfya_labs\diagram.cpp(447): warning C4101: uk2: неиспользованная локальная переменная
-z:\my files\study\matfya\matfya_labs\matfya_labs\diagram.cpp(447): warning C4101: uk1: неиспользованная локальная переменная
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Semant.cpp(147,8): warning C4101: v: неиспользованная локальная переменная
   Создание кода...
-z:\my files\study\matfya\matfya_labs\matfya_labs\diagram.cpp(474): warning C4715: Diagram::Bracket: значение возвращается не при всех путях выполнения
-  MATFYA_LABS.vcxproj -> Z:\My files\study\MATFYA\MATFYA_LABS\Debug\MATFYA_LABS.exe
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(481): warning C4715: Diagram::Bracket: значение возвращается не при всех путях выполнения
+  MATFYA_LABS.vcxproj -> E:\Projects\MATFYA_LABS\Debug\MATFYA_LABS.exe

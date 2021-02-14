@@ -3,6 +3,19 @@
 enum DATA_TYPE { EMPTY = 0, TYPE_INTEGER = 100, TYPE_VOID = 200, TYPE_SHORT_INTEGER = 300, TYPE_LONG_INTEGER = 400 };
 enum TYPE_OBJECT { EMPT = 0, OBJ_VAR = 10, OBJ_FUNCT = 30 };
 
+union DataValue
+{
+	short int dataAsSInt;
+	long int dataAsLInt;
+
+};
+
+struct TData
+{
+	DATA_TYPE dataType;			//тип значения
+	DataValue dataValue;		//само значение
+};
+
 struct Node //информация в вершине дерева
 {
 	TYPE_OBJECT typeObject; 
@@ -12,17 +25,7 @@ struct Node //информация в вершине дерева
 	int position;	//позиция тела функции
 };
 
-union DataValue
-{
-	short int dataAsSInt;		
-	long int dataAsLInt;
 
-};
-struct TData
-{
-	DATA_TYPE dataType;			//тип значения
-	DataValue dataValue;		//само значение
-};
 
 class Tree //  элемент  семантической  таблицы
 {
@@ -66,7 +69,5 @@ public:
 
 	Tree* CopyFunc();								//Копирование функции
 	void DeleteFunc();								//Удаление функции
-
-	TData SemResultOperation(TData t1, TData t2, int op); 
 };
 #endif 

@@ -94,7 +94,7 @@ Tree *Tree::FindUpOneLevel(Tree *From, TypeLex id)
 //отладочная программа печати дерева
 void Tree::Print(void)
 {
-	printf("Вершина с данными %s ----->", n->id);
+	printf("Вершина с данными %s --->", n->id);
 	if (Left != NULL)
 		printf("        слева  данные   %s тип %d", Left->n->id, Left->n->typeObject);
 	if (Right != NULL)
@@ -148,7 +148,22 @@ void Tree::SemIncludeVar(TypeLex a, DATA_TYPE dt)
 	Node b;
 	memcpy(b.id, a, strlen(a) + 1);
 	b.typeObject = OBJ_VAR;
-	b.dataType = dt;
+	b.data.dataType = dt;
+	switch (dt)
+	{
+	case TYPE_SHORT_INTEGER:
+	{
+		b.data.dataValue.dataAsSInt = 0;
+		break;
+	}
+	case TYPE_LONG_INTEGER:
+	{
+		b.data.dataValue.dataAsLInt = 0;
+		break;
+	}
+	default:
+		break;
+	}
 	b.param = 0;
 	Cur->SetLeft(&b);	//сделали вершину - переменную
 	Cur = Cur->Left;
@@ -163,14 +178,14 @@ Tree *Tree::SemIncludeFunct(TypeLex a, DATA_TYPE dt)
 	Node b;
 	memcpy(b.id, a, strlen(a) + 1);
 	b.typeObject = OBJ_FUNCT;
-	b.dataType = dt;
+	b.data.dataType = dt;
 	b.param = 0;
 	Cur->SetLeft(&b);	//сделали вершину - функцию
 	Cur = Cur->Left;
 	v = Cur;			//это точка возврата после выхода из функции
 	memcpy(&b.id, &"", 2);
 	b.typeObject = EMPT;
-	b.dataType = EMPTY;
+	b.data.dataType = EMPTY;
 	b.param = EMPTY;
 	Cur->SetRight(&b); //сделали пустую вершину
 	Cur = Cur->Right;
@@ -184,14 +199,14 @@ Tree *Tree::SemIncludeBlock()
 	Node b;
 	memcpy(&b.id, &"", 2);
 	b.typeObject = EMPT;
-	b.dataType = EMPTY;
+	b.data.dataType = EMPTY;
 	b.param = EMPTY;
 	Cur->SetLeft(&b);	//сделали вершину - функцию
 	Cur = Cur->Left;
 	v = Cur;
 	memcpy(&b.id, &"", 2);
 	b.typeObject = EMPT;
-	b.dataType = EMPTY;
+	b.data.dataType = EMPTY;
 	b.param = EMPTY;
 	Cur->SetRight(&b); //сделали пустую вершину
 	Cur = Cur->Right;
@@ -261,7 +276,7 @@ int Tree::DupControl(Tree *Addr, TypeLex a)
 //
 DATA_TYPE Tree::SemGetType(Tree *Addr)
 {
-	return Addr->n->dataType;
+	return Addr->n->data.dataType;
 }
 
 //
@@ -327,295 +342,4 @@ void Tree::DeleteFunc()
 	delete Cur;
 	Cur = vUp;
 	Cur->Left = vLeft;
-}
-
-//
-TData Tree::SemResultOperation(TData t1, TData t2, int op)
-{
-	TData result;
-	/*if (op >= MMore && op <= MNonEqual)
-	{
-		result.dataType = TYPE_INTEGER64;
-		switch (op)
-		{
-		case MMore:
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 > t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-				{
-					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 > t2.dataValue.dataAsFloat;
-				}
-				else
-				{
-					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat > t2.dataValue.dataAsInt64;
-					}
-					else
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat > t2.dataValue.dataAsFloat;
-					}
-				}
-			}
-			break;
-		case MMoreOrEqual:
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 >= t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-				{
-					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 >= t2.dataValue.dataAsFloat;
-				}
-				else
-				{
-					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat >= t2.dataValue.dataAsInt64;
-					}
-					else
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat >= t2.dataValue.dataAsFloat;
-					}
-				}
-			}
-			break;
-		case MLess:
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 < t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-				{
-					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 < t2.dataValue.dataAsFloat;
-				}
-				else
-				{
-					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat < t2.dataValue.dataAsInt64;
-					}
-					else
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat < t2.dataValue.dataAsFloat;
-					}
-				}
-			}
-			break;
-		case MLessOrEqual:
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 <= t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-				{
-					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 <= t2.dataValue.dataAsFloat;
-				}
-				else
-				{
-					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat <= t2.dataValue.dataAsInt64;
-					}
-					else
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat <= t2.dataValue.dataAsFloat;
-					}
-				}
-			}
-			break;
-		case MEqual:
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 == t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-				{
-					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 == t2.dataValue.dataAsFloat;
-				}
-				else
-				{
-					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat == t2.dataValue.dataAsInt64;
-					}
-					else
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat == t2.dataValue.dataAsFloat;
-					}
-				}
-			}
-			break;
-		case MNonEqual:
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 != t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-				{
-					result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 != t2.dataValue.dataAsFloat;
-				}
-				else
-				{
-					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat != t2.dataValue.dataAsInt64;
-					}
-					else
-					{
-						result.dataValue.dataAsInt64 = t1.dataValue.dataAsFloat != t2.dataValue.dataAsFloat;
-					}
-				}
-			}
-			break;
-		default:
-			break;
-		}
-	}
-	switch (op)
-	{
-	case MPlus:
-		if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-		{
-			result.dataType = TYPE_INTEGER64;
-			result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 + t2.dataValue.dataAsInt64;
-		}
-		else
-		{
-			result.dataType = TYPE_FLOAT;
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-			{
-				result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 + t2.dataValue.dataAsFloat;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-				{
-					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat + t2.dataValue.dataAsInt64;
-				}
-				else
-				{
-					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat + t2.dataValue.dataAsFloat;
-				}
-			}
-		}
-		break;
-	case MMinus:
-		if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-		{
-			result.dataType = TYPE_INTEGER64;
-			result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 - t2.dataValue.dataAsInt64;
-		}
-		else
-		{
-			result.dataType = TYPE_FLOAT;
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-			{
-				result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 - t2.dataValue.dataAsFloat;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-				{
-					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat - t2.dataValue.dataAsInt64;
-				}
-				else
-				{
-					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat - t2.dataValue.dataAsFloat;
-				}
-			}
-		}
-		break;
-	case MMult:
-		if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-		{
-			result.dataType = TYPE_INTEGER64;
-			result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 * t2.dataValue.dataAsInt64;
-		}
-		else
-		{
-			result.dataType = TYPE_FLOAT;
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-			{
-				result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 * t2.dataValue.dataAsFloat;
-			}
-			else
-			{
-				if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-				{
-					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat * t2.dataValue.dataAsInt64;
-				}
-				else
-				{
-					result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat * t2.dataValue.dataAsFloat;
-				}
-			}
-		}
-		break;
-	case MDivide:
-		if (t2.dataValue.dataAsInt64 != 0 || t2.dataValue.dataAsFloat != 0)
-		{
-			if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataType = TYPE_INTEGER64;
-				result.dataValue.dataAsInt64 = t1.dataValue.dataAsInt64 / t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				result.dataType = TYPE_FLOAT;
-				if (t1.dataType == TYPE_INTEGER64 && t2.dataType == TYPE_FLOAT)
-				{
-					result.dataValue.dataAsFloat = t1.dataValue.dataAsInt64 / t2.dataValue.dataAsFloat;
-				}
-				else
-				{
-					if (t1.dataType == TYPE_FLOAT && t2.dataType == TYPE_INTEGER64)
-					{
-						result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat / t2.dataValue.dataAsInt64;
-					}
-					else
-					{
-						result.dataValue.dataAsFloat = t1.dataValue.dataAsFloat / t2.dataValue.dataAsFloat;
-					}
-				}
-			}
-		}
-		else
-		{
-			sc->PrintError("Äåëåíèå íà 0");
-		}
-		break;
-	case MAssign:
-		result = t2;
-		if (t1.dataType != t2.dataType)
-		{
-			if (t2.dataType == TYPE_INTEGER64)
-			{
-				result.dataValue.dataAsFloat = (float)t2.dataValue.dataAsInt64;
-			}
-			else
-			{
-				result.dataValue.dataAsInt64 = (int)t2.dataValue.dataAsFloat;
-			}
-			result.dataType = t1.dataType;
-		}
-		break;
-	default:
-		break;
-	}*/
-	return result;
 }

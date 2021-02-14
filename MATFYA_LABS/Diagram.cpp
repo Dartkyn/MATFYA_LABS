@@ -84,8 +84,12 @@ void Diagram::Funct()
 				sc->PrintError("Ожидался символ )", l, sc->GetUKS());
 			}
 		}
+	root->Print();
+	system("pause");
 	Block();
 	root->SetCur(v);
+	root->Print();
+	system("pause");
 }
 
 int Diagram::Param()
@@ -204,7 +208,10 @@ void Diagram::Block()
 		sc->PutUK(uk1);
 		sc->PutUKS(uk2);
 	}
+	root->Print();
+	system("pause");
 	root->SetCur(vb);
+	root->DeleteBlock();
 	t = sc->Scaner(l);
 	if (t != TBracketCl)
 	{
@@ -252,7 +259,7 @@ void Diagram::Operator()
 			int ct=0;
 			do
 			{
-				uk1 = sc->GetUK();
+				/*uk1 = sc->GetUK();
 				uk2 = sc->GetUKS();
 				t = sc->Scaner(l);
 				/*if (t != TIdent)
