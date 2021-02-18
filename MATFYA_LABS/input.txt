@@ -1,5 +1,5 @@
 void fun(short int k, short int e)
-// ћлок
+// Ѓлок
 {
 	long int t;
 	k = k*2*2;

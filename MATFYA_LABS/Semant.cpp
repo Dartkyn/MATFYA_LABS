@@ -273,13 +273,13 @@ int Tree::DupControl(Tree *Addr, TypeLex a)
 	return 1;
 }
 
-//
+//Получить тип
 DATA_TYPE Tree::SemGetType(Tree *Addr)
 {
 	return Addr->n->data.dataType;
 }
 
-//
+//Удалить поддерево
 void Tree::SubtreeRemoval(Tree* addr)
 {
 	if (addr == NULL)
@@ -295,19 +295,19 @@ void Tree::SubtreeRemoval(Tree* addr)
 	delete addr;
 }
 
-//
+//Получить позицию
 int Tree::GetPosition(Tree* addr)
 {
 	return addr->n->position;
 }
 
-//
+//Запомнить позицию
 void Tree::PutPosition(Tree* addr, int pos)
 {
 	addr->n->position = pos;
 }
 
-//
+//Удалить блок
 void Tree::DeleteBlock()
 {
 	Tree* v = Cur->Up;
@@ -316,7 +316,7 @@ void Tree::DeleteBlock()
 	Cur->Left = NULL;
 }
 
-//
+//Скопировать функцию
 Tree* Tree::CopyFunc()
 {
 	Tree* vLeft = Cur->Left;
@@ -332,7 +332,7 @@ Tree* Tree::CopyFunc()
 	return v;
 }
 
-//
+//Удаление функции
 void Tree::DeleteFunc()
 {
 	Cur = Cur->Up;
@@ -342,4 +342,21 @@ void Tree::DeleteFunc()
 	delete Cur;
 	Cur = vUp;
 	Cur->Left = vLeft;
+}
+
+//Занести значение в переменную
+void Tree::SemPutValue(Tree* addr, TData t)
+{
+	addr->n->data = t;
+	if (addr->n->typeObject == OBJ_VAR)
+	{
+		if (t.dataType == TYPE_SHORT_INTEGER)
+		{
+			printf("Переменной %s присвоено значение %f \n", addr->n->id, t.dataValue.dataAsSInt);
+		}
+		else
+		{
+			printf("Переменной %s присвоено значение %d \n", addr->n->id, t.dataValue.dataAsLInt);
+		}
+	}
 }

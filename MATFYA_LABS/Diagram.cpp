@@ -456,6 +456,7 @@ DATA_TYPE Diagram::Bracket()
 	t = sc->Scaner(l);
 	if ((t == TCons10) || (t == TCons16))
 	{
+
 		return TYPE_SHORT_INTEGER;
 	}
 	if (t == TBraceOp)

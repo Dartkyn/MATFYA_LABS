@@ -48,7 +48,7 @@ public:
 	void Print(void);
 	void SubtreeRemoval(Tree* addr);				//Удаление поддерева
 	void SetCur(Tree *a);						  //установить текущий узел дерева
-	Tree *GetCur(void);							  //получить значение текущего узла дерева
+	Tree *GetCur(void);							  //получить  текущий узел дерева
 	DATA_TYPE SemGetDataType(int a);			  //получить тип значения
 	void SemIncludeVar(TypeLex a, DATA_TYPE t);  //занесение идентификатора a в таблицу с типом t
 	Tree *SemIncludeFunct(TypeLex a, DATA_TYPE t);//
@@ -69,5 +69,6 @@ public:
 
 	Tree* CopyFunc();								//Копирование функции
 	void DeleteFunc();								//Удаление функции
+	void SemPutValue(Tree *addr, TData t);			//Пместить тип
 };
 #endif 
