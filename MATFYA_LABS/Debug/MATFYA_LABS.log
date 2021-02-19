@@ -1,11 +1,3 @@
-﻿  Diagram.cpp
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(242,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(307,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(299,12): warning C4101: type: неиспользованная локальная переменная
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(454,15): warning C4101: uk2: неиспользованная локальная переменная
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(454,10): warning C4101: uk1: неиспользованная локальная переменная
-  Semant.cpp
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Semant.cpp(147,8): warning C4101: v: неиспользованная локальная переменная
-  Создание кода...
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(481): warning C4715: Diagram::Bracket: значение возвращается не при всех путях выполнения
+﻿  Semant.cpp
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Semant.cpp(152,8): warning C4101: v: неиспользованная локальная переменная
   MATFYA_LABS.vcxproj -> E:\Projects\MATFYA_LABS\Debug\MATFYA_LABS.exe

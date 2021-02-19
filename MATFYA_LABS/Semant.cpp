@@ -121,21 +121,26 @@ Tree *Tree::GetCur(void)
 }
 
 //получить тип значения
-DATA_TYPE Tree::SemGetDataType(int a)
+TData Tree::SemGetDataType(int a)
 {
+	TData data;
 	if (a == Tsint)
 	{
-		return TYPE_SHORT_INTEGER;
+		data.dataType = TYPE_SHORT_INTEGER;
+		return data;
 	}
 	if (a == Tlint)
 	{
-		return TYPE_LONG_INTEGER;
+		data.dataType = TYPE_LONG_INTEGER;
+		return data;
 	}
 	if (a == Tvoid)
 	{
-		return TYPE_VOID;
+		data.dataType = TYPE_VOID;
+		return data;
 	}
-	return TYPE_INTEGER;
+	data.dataType = TYPE_INTEGER;
+	return data;
 
 }
 
@@ -215,15 +220,20 @@ Tree *Tree::SemIncludeBlock()
 
 
 //
-DATA_TYPE Tree::SemResultOperation(DATA_TYPE t1, DATA_TYPE t2, int op)
+TData Tree::SemResultOperation(TData t1, TData t2, int op)
 {
-		if (t1 == TYPE_LONG_INTEGER && t2 == TYPE_LONG_INTEGER)
-			return TYPE_LONG_INTEGER;
+	TData result;
+		if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			return t1;
 		else
 		{
-			if ((t1 == TYPE_SHORT_INTEGER && t2 == TYPE_LONG_INTEGER)|| (t2 == TYPE_SHORT_INTEGER && t1 == TYPE_LONG_INTEGER))
-				return TYPE_LONG_INTEGER;
-			return TYPE_SHORT_INTEGER;
+			if ((t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_LONG_INTEGER) || (t2.dataType == TYPE_SHORT_INTEGER && t1.dataType == TYPE_LONG_INTEGER))
+			{
+				result.dataType = TYPE_LONG_INTEGER;
+				return result;
+			}
+			result.dataType = TYPE_SHORT_INTEGER;
+			return result;
 		}
 
 }
@@ -274,9 +284,9 @@ int Tree::DupControl(Tree *Addr, TypeLex a)
 }
 
 //Получить тип
-DATA_TYPE Tree::SemGetType(Tree *Addr)
+TData Tree::SemGetType(Tree *Addr)
 {
-	return Addr->n->data.dataType;
+	return Addr->n->data;
 }
 
 //Удалить поддерево
@@ -352,7 +362,7 @@ void Tree::SemPutValue(Tree* addr, TData t)
 	{
 		if (t.dataType == TYPE_SHORT_INTEGER)
 		{
-			printf("Переменной %s присвоено значение %f \n", addr->n->id, t.dataValue.dataAsSInt);
+			printf("Переменной %s присвоено значение %d \n", addr->n->id, t.dataValue.dataAsSInt);
 		}
 		else
 		{

@@ -18,11 +18,11 @@ public:
 	void Assignment();		// присваивание
 	void If();			    // if
 	int Param();			// параметры функции
-	DATA_TYPE Expression();		// выражение
-	DATA_TYPE Calc();			// подсчет
-	DATA_TYPE Arithmetic();		// арифметика
-	DATA_TYPE Mul_div();			// умножение/деление
-	DATA_TYPE Bracket();			// скобки
+	void Expression(TData& type);		// выражение
+	void Calc(TData& type);			// подсчет
+	void Arithmetic(TData& type);		// арифметика
+	void Mul_div(TData& type);			// умножение/деление
+	void Bracket(TData& type);			// скобки
 	bool SetFlagIntr();
 	bool GetFlagIntr();
 };

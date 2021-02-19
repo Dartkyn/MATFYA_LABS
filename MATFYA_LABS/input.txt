@@ -1,14 +1,6 @@
-void fun(short int k, short int e)
-// Ѓлок
-{
-	long int t;
-	k = k*2*2;
-	t = k+3;
-}
 int main()
 {
 	short int a;
-	{short int b,c;}
-	short int f=a*3;
-	fun(2, 4);
+	short int f = 3000;
+	a = f;
 }

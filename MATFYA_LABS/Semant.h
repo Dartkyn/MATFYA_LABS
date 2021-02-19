@@ -49,18 +49,18 @@ public:
 	void SubtreeRemoval(Tree* addr);				//Удаление поддерева
 	void SetCur(Tree *a);						  //установить текущий узел дерева
 	Tree *GetCur(void);							  //получить  текущий узел дерева
-	DATA_TYPE SemGetDataType(int a);			  //получить тип значения
+	TData SemGetDataType(int a);			  //получить тип значения
 	void SemIncludeVar(TypeLex a, DATA_TYPE t);  //занесение идентификатора a в таблицу с типом t
 	Tree *SemIncludeFunct(TypeLex a, DATA_TYPE t);//
 	Tree *SemIncludeBlock();					  //
 	void SemSetParam(Tree *Addr, int n);			//установить число формальных параметров n для функции по адресу Addr
 	void SemControlParam(Tree *Addr, int n);		//проверить равенство числа формальных параметров
-	DATA_TYPE SemResultOperation(DATA_TYPE t1, DATA_TYPE t2, int op);
+	TData SemResultOperation(TData t1, TData t2, int op);
 
 	Tree *SemGetVar(TypeLex a);				  //найти в таблице переменную с именем a и вернуть ссылку на соответствующий элемент дерева
 	Tree *SemGetFunct(TypeLex a);				  //найти в таблице функцию с именем a и вернуть ссылку на соответствующий элемент дерева
 	int DupControl(Tree *Addr, TypeLex a);		  //проверка идентификатора а на повторное описание внутри блока
-	DATA_TYPE SemGetType(Tree *Addr);
+	TData SemGetType(Tree *Addr);				//Получить тип и значение по адресу
 
 	int GetPosition(Tree* addr);					//Получение позиции
 	void PutPosition(Tree* addr, int pos);			//Установление позиции
@@ -69,6 +69,6 @@ public:
 
 	Tree* CopyFunc();								//Копирование функции
 	void DeleteFunc();								//Удаление функции
-	void SemPutValue(Tree *addr, TData t);			//Пместить тип
+	void SemPutValue(Tree *addr, TData t);			//Поместить значение по адресу 
 };
 #endif 
