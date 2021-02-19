@@ -1,6 +1,10 @@
 int main()
 {
 	short int a;
-	short int f = 3000;
+	short int f = 2568;
 	a = f;
+	long int  g = 123456789;
+	long int r = g;
+	r = a;
+	f = g;
 }

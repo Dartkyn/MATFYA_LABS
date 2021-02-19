@@ -450,10 +450,12 @@ void Diagram::Bracket(TData& type)
 		{
 			type.dataType = TYPE_SHORT_INTEGER;
 			type.dataValue.dataAsSInt = atoi(l);
+			type.dataValue.dataAsLInt = atoi(l);
 		}
 		else
 		{
 			type.dataType = TYPE_LONG_INTEGER;
+			type.dataValue.dataAsLInt = atol(l);
 			type.dataValue.dataAsSInt = atol(l);
 		}
 		return;

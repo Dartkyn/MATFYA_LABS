@@ -357,10 +357,10 @@ void Tree::DeleteFunc()
 //Занести значение в переменную
 void Tree::SemPutValue(Tree* addr, TData t)
 {
-	addr->n->data = t;
+	
 	if (addr->n->typeObject == OBJ_VAR)
 	{
-		if (t.dataType == TYPE_SHORT_INTEGER)
+		if (addr->n->data.dataType == TYPE_SHORT_INTEGER)
 		{
 			printf("Переменной %s присвоено значение %d \n", addr->n->id, t.dataValue.dataAsSInt);
 		}
@@ -369,4 +369,5 @@ void Tree::SemPutValue(Tree* addr, TData t)
 			printf("Переменной %s присвоено значение %d \n", addr->n->id, t.dataValue.dataAsLInt);
 		}
 	}
+	addr->n->data = t;
 }
