@@ -1,3 +1,10 @@
+void fun(short int arg1, long int arg2)
+{
+	short int o = arg1;
+	arg1 = arg2;
+	long int s = 0x2AF;
+	o = s;
+} 
 int main()
 {
 	short int a;
@@ -7,4 +14,18 @@ int main()
 	long int r = g;
 	r = a;
 	f = g;
+	a = 3215654897;
+	fun(a, r);
+	short int s = 0x2AF;
+	f = s;
+	short int i = 0x46BD;
+	long int k = 987654321;
+	if(s > 0)
+		{
+		k = i;
+		}
+	else
+		{
+		i = k;
+		}
 }

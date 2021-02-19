@@ -436,8 +436,9 @@ void Diagram::Mul_div(TData& type)
 void Diagram::Bracket(TData& type)
 // Скобки
 {
-	TypeLex  l;
+	TypeLex  l, l1;
 	int  t, uk1, uk2;
+	long int s = 0;
 	t = sc->Scaner(l);
 	if ((t == TCons10) || (t == TCons16))
 	{
@@ -446,17 +447,60 @@ void Diagram::Bracket(TData& type)
 		{
 			count++;
 		}
-		if (count <= 6)
+		if (t == TCons16)
 		{
-			type.dataType = TYPE_SHORT_INTEGER;
-			type.dataValue.dataAsSInt = atoi(l);
-			type.dataValue.dataAsLInt = atoi(l);
+			//проблема перевести из символьного представления в числовое - далее дебри воспаленного разума
+			count = count - 2;
+			for (int i = 1; i <= count; i++)
+			{
+				int k = i + 1;
+				switch (l[k])
+				{
+				case '1': {s = s + PwrHex(count - i); break; }
+				case '2': {s = s + 2 * PwrHex(count - i); break; }
+				case '3': {s = s + 3 * PwrHex(count - i); break; }
+				case '4': {s = s + 4 * PwrHex(count - i); break; }
+				case '5': {s = s + 5 * PwrHex(count - i); break; }
+				case '6': {s = s + 6 * PwrHex(count - i); break; }
+				case '7': {s = s + 7 * PwrHex(count - i); break; }
+				case '8': {s = s + 8 * PwrHex(count - i); break; }
+				case '9': {s = s + 9 * PwrHex(count - i); break; }
+				case 'A': {s = s + 10 * PwrHex(count - i); break; }
+				case 'B': {s = s + 11 * PwrHex(count - i); break; }
+				case 'C': {s = s + 12 * PwrHex(count - i); break; }
+				case 'D': {s = s + 13 * PwrHex(count - i); break; }
+				case 'E': {s = s + 14 * PwrHex(count - i); break; }
+				case 'F': {s = s + 15 * PwrHex(count - i); break; }
+				}
+			}
+			if ((s <= 32767) && (s >= -32767))
+			{
+				type.dataType = TYPE_SHORT_INTEGER;
+				type.dataValue.dataAsSInt = s;
+				type.dataValue.dataAsLInt = s;
+			}
+			else
+			{
+				type.dataType = TYPE_LONG_INTEGER;
+				type.dataValue.dataAsLInt = s;
+				type.dataValue.dataAsSInt = s;
+			}
+
 		}
 		else
 		{
-			type.dataType = TYPE_LONG_INTEGER;
-			type.dataValue.dataAsLInt = atol(l);
-			type.dataValue.dataAsSInt = atol(l);
+			if (count <= 6)
+			{
+				type.dataType = TYPE_SHORT_INTEGER;
+				type.dataValue.dataAsSInt = atoi(l);
+				type.dataValue.dataAsLInt = atoi(l);
+			}
+			else
+			{
+				type.dataType = TYPE_LONG_INTEGER;
+				type.dataValue.dataAsLInt = atol(l);
+				type.dataValue.dataAsSInt = atol(l);
+			}
 		}
 		return;
 	}
@@ -488,4 +532,14 @@ bool Diagram::SetFlagIntr()
 bool Diagram::GetFlagIntr()
 {
 	return false;
+}
+
+long int Diagram::PwrHex(int count)
+{
+	long int result = 1;
+	for (int i = 0; i < count; i++)
+	{
+		result *= 16;
+	}
+	return result;
 }

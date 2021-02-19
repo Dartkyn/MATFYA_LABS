@@ -25,5 +25,6 @@ public:
 	void Bracket(TData& type);			// скобки
 	bool SetFlagIntr();
 	bool GetFlagIntr();
+	long int PwrHex(int count);
 };
 #endif
