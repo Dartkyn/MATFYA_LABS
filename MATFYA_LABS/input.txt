@@ -3,23 +3,27 @@ void fun(short int arg1, long int arg2)
 	short int o = arg1;
 	arg1 = arg2;
 	long int s = 0x2AF;
-	o = s;
+	o = s + 2 * 2;
 } 
 int main()
 {
 	short int a;
 	short int f = 2568;
-	a = f;
+	a = (f +  4) / 3;
 	long int  g = 123456789;
-	long int r = g;
-	r = a;
-	f = g;
-	a = 3215654897;
+	long int r = g / 6;
+	r = a + r;
+	f = g / 128 ;
+	a = (r - g + f) / f;
 	fun(a, r);
 	short int s = 0x2AF;
 	f = s;
 	short int i = 0x46BD;
 	long int k = 987654321;
+	short int shift1 = 2;
+	short int shift2 = 3;
+	shift2 = 2>>3;
+	shift1 = 2<<shift2;
 	if(s > 0)
 		{
 		k = i;

@@ -219,32 +219,483 @@ Tree *Tree::SemIncludeBlock()
 }
 
 
-//
+//Вычисления типа и результата операции
 TData Tree::SemResultOperation(TData t1, TData t2, int op)
 {
 	TData result;
-		if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
-			return t1;
-		else
+	switch (op)
+	{
+	case TMore:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
 		{
-			if ((t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_LONG_INTEGER) || (t2.dataType == TYPE_SHORT_INTEGER && t1.dataType == TYPE_LONG_INTEGER))
-			{
-				result.dataType = TYPE_LONG_INTEGER;
-				return result;
-			}
-			result.dataType = TYPE_SHORT_INTEGER;
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt > t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
 			return result;
 		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt > t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt > t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt > t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TMoreOrEqual:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt >= t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt >= t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt >= t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt >= t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TLess:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt < t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt < t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt < t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt < t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TLessOrEqual:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt <= t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt <= t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt <= t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt <= t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TEqual:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt == t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt == t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt == t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt == t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TNotEqual:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt != t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt != t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt != t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt != t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TShiftL:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt << t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt << t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt << t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt << t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TShiftR:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt >> t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt >> t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt >> t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt >> t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TAdd:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt + t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt + t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt + t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt + t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TSub:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt - t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt - t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt - t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt - t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TMult:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt * t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt * t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt * t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt * t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	case TDiv:
+	{
+		if (t1.dataType == TYPE_SHORT_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+		{
+			result = t1;
+			result.dataValue.dataAsSInt = t1.dataValue.dataAsSInt / t2.dataValue.dataAsSInt;
+			result.dataValue.dataAsLInt = result.dataValue.dataAsSInt;
+			return result;
+		}
+		else
+		{
+			if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_LONG_INTEGER)
+			{
+				result = t1;
+				result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt / t2.dataValue.dataAsLInt;
+				result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+				return result;
+			}
+			else
+			{
+				if (t1.dataType == TYPE_LONG_INTEGER && t2.dataType == TYPE_SHORT_INTEGER)
+				{
+					result = t1;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsLInt / t2.dataValue.dataAsSInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+				else
+				{
+					result = t2;
+					result.dataValue.dataAsLInt = t1.dataValue.dataAsSInt / t2.dataValue.dataAsLInt;
+					result.dataValue.dataAsSInt = result.dataValue.dataAsLInt;
+					return result;
+				}
+			}
+		}
+		break;
+	}
+	default:
+		break;
+	}
 
 }
-void Tree::SemSetParam(Tree* Addr, int num)
+
 // установить число формальных параметров n для функции по адресу Addr
+void Tree::SemSetParam(Tree* Addr, int num)
 {
 	Addr->n->param = num;
 }
-void Tree::SemControlParam(Tree *Addr, int num)
+
 // проверить равенство числа формальных параметров значению
 // n для функции по адресу Addr
+void Tree::SemControlParam(Tree *Addr, int num)
 {
 	if (num != Addr->n->param)
 		sc->PrintError("Неверное число параметров у функции ", Addr->n->id);

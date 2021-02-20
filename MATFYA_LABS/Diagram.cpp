@@ -513,15 +513,18 @@ void Diagram::Bracket(TData& type)
 			sc->PrintError("ожидался  символ  )", l, sc->GetUKS());
 		}
 	}
-	if (t == TIdent)
-	{
-		Tree *v = root->SemGetVar(l);
-		type = root->SemGetType(v);
-	}
 	else
-	 {
-		sc->PrintError("ожидался  идентификатор или константа, или выражение", l, sc->GetUKS());
-	}	
+	{
+		if (t == TIdent)
+		{
+			Tree* v = root->SemGetVar(l);
+			type = root->SemGetType(v);
+		}
+		else
+		{
+			sc->PrintError("ожидался  идентификатор или константа, или выражение", l, sc->GetUKS());
+		}
+	}
 }
 
 bool Diagram::SetFlagIntr()

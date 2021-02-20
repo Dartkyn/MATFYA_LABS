@@ -55,7 +55,7 @@ public:
 	Tree *SemIncludeBlock();					  //
 	void SemSetParam(Tree *Addr, int n);			//установить число формальных параметров n для функции по адресу Addr
 	void SemControlParam(Tree *Addr, int n);		//проверить равенство числа формальных параметров
-	TData SemResultOperation(TData t1, TData t2, int op);
+	TData SemResultOperation(TData t1, TData t2, int op);	//Вычисления типа и результата операции
 
 	Tree *SemGetVar(TypeLex a);				  //найти в таблице переменную с именем a и вернуть ссылку на соответствующий элемент дерева
 	Tree *SemGetFunct(TypeLex a);				  //найти в таблице функцию с именем a и вернуть ссылку на соответствующий элемент дерева
