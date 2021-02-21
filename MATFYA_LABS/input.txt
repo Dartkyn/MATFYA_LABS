@@ -13,16 +13,16 @@ int main()
 	long int  g = 123456789;
 	long int r = g / 6;
 	r = a + r;
-	f = g / 128 ;
+	f = g / 1283;
 	a = (r - g + f) / f;
 	fun(a, r);
 	short int s = 0x2AF;
 	f = s;
 	short int i = 0x46BD;
 	long int k = 987654321;
-	short int shift1 = 2;
-	short int shift2 = 3;
-	shift2 = 2>>3;
+	short int shift1 = 10;
+	short int shift2 = 2;
+	shift2 = shift1>>shift2;
 	shift1 = 2<<shift2;
 	if(s > 0)
 		{
@@ -32,4 +32,12 @@ int main()
 		{
 		i = k;
 		}
+	i = a > f;
+	i = a >= f;
+	i = a == f;
+	i = a == a;
+	i = a < f;
+	i = a <= f;
+	i = a != f;
+	i = a !=a;
 }
