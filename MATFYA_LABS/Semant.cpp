@@ -822,3 +822,15 @@ void Tree::SemPutValue(Tree* addr, TData t)
 	}
 	addr->n->data = t;
 }
+
+//Поместить значение флага интерпритации
+bool Tree::SetFlagIntr(bool f1)
+{
+	flagInterpret = f1;
+}
+
+//Получить значение флага интерпритации
+bool Tree::GetFlagIntr()
+{
+	return flagInterpret;
+}

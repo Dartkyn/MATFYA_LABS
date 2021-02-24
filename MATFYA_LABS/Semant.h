@@ -7,7 +7,6 @@ union DataValue
 {
 	short int dataAsSInt;
 	long int dataAsLInt;
-
 };
 
 struct TData
@@ -33,6 +32,7 @@ private:
 	Node *n;					//информация об объекте таблицы
 	Tree *Up, *Left, *Right;	//родитель, левый и правый потомок
 	TScaner *sc;
+	static bool flagInterpret;	//флаг интерпритации
 public:
 	static Tree *Cur;			//текущий элемент дерева
 	Tree(Tree *l, Tree *r, Tree *u, Node *Data);
@@ -69,6 +69,8 @@ public:
 
 	Tree* CopyFunc();								//Копирование функции
 	void DeleteFunc();								//Удаление функции
-	void SemPutValue(Tree *addr, TData t);			//Поместить значение по адресу 
+	void SemPutValue(Tree *addr, TData t);			//Поместить значение по адресу
+	bool SetFlagIntr(bool f1);								//Поместить флаг интерпритации
+	bool GetFlagIntr();								//Получить значение флага интерпритации
 };
 #endif 
