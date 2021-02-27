@@ -72,5 +72,7 @@ public:
 	void SemPutValue(Tree *addr, TData t);			//Поместить значение по адресу
 	bool SetFlagIntr(bool f1);								//Поместить флаг интерпритации
 	bool GetFlagIntr();								//Получить значение флага интерпритации
+	Tree *GetRight(Tree* v);								//Получить правый потомок
+	Tree* GetLeft(Tree* v);								//Получить левый потомок
 };
 #endif 

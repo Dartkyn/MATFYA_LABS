@@ -32,7 +32,7 @@ void Diagram::Funct()
 //функции				   
 {
 	TypeLex l;
-	int t, uk1, uk2;
+	int t, uk1, uk2, uk3;
 	TData type;
 	Tree *v;
 	uk1 = sc->GetUK();
@@ -83,9 +83,13 @@ void Diagram::Funct()
 			{
 				sc->PrintError("Ожидался символ )", l, sc->GetUKS());
 			}
+			uk3 = sc->GetUK();
+			root->PutPosition(v, uk3);
+			root->SetFlagIntr(false);
 		}
 	Block();
 	root->SetCur(v);
+	root->SetFlagIntr(true);
 }
 
 int Diagram::Param()
@@ -249,13 +253,15 @@ void Diagram::Operator()
 				sc->PrintError("Ожидался символ (", l, sc->GetUKS());
 			}
 			Tree *v = root->SemGetFunct(a);
+			Tree* p = root->GetLeft(root->GetRight(v));
 			int ct=0;
 			do
 			{
 
 				Expression(type);
-
+				root->SemPutValue(p, type);
 				ct++;
+				p = root->GetLeft(p);
 				uk1 = sc->GetUK();
 				uk2 = sc->GetUKS();
 				t = sc->Scaner(l);
@@ -317,6 +323,7 @@ void Diagram::If()
 	int t, uk1, uk2;
 	t = sc->Scaner(l);
 	TData type;
+	bool localFlInt = root ->GetFlagIntr();
 	if (t != Tif)
 	{
 		sc->PrintError("Ожидался  символ if", l, sc->GetUKS());
@@ -327,6 +334,14 @@ void Diagram::If()
 		sc->PrintError("Ожидался  символ (", l, sc->GetUKS());
 	}
 	Expression(type);
+	if (root->GetFlagIntr()&&type.dataValue.dataAsSInt!=0)
+	{
+		root->SetFlagIntr(false);
+	}
+	else
+	{
+		root->SetFlagIntr(true);
+	}
 	t = sc->Scaner(l);
 	if (t != TBraceCl)
 	{
@@ -338,11 +353,16 @@ void Diagram::If()
 	t = sc->Scaner(l);
 	sc->PutUK(uk1);
 	sc->PutUKS(uk2);
+	if (localFlInt)
+	{
+		root->SetFlagIntr(1 - root->GetFlagIntr());
+	}
 	if (t == Telse)
 	{
 		t = sc->Scaner(l);
 		Operator();
 	}
+	root->SetFlagIntr(localFlInt);
 }
 
 void Diagram::Expression(TData& type)

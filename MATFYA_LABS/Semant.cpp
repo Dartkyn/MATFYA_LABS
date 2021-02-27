@@ -14,6 +14,7 @@ Tree::Tree(Tree *l, Tree *r, Tree *u, Node *d)
 	Left = l;
 	Right = r;
 	memcpy(n, d, sizeof(Node)); //установили данные
+	flagInterpret = true;
 }
 
 //конструктор создает новый узел с пустыми связями и данными
@@ -24,6 +25,7 @@ Tree::Tree(void)
 	Left = NULL;
 	Right = NULL;
 	memcpy(n, &("------"), sizeof(Node));
+	flagInterpret = true;
 }
 
 Tree::~Tree()
@@ -111,18 +113,30 @@ Tree *Tree::Cur = (Tree*)NULL;
 //установить текущий узел дерева
 void Tree::SetCur(Tree *a)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Cur = a;
 }
 
 //получить значение текущего узла дерева
 Tree *Tree::GetCur(void)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	return Cur;
 }
 
 //получить тип значения
 TData Tree::SemGetDataType(int a)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	TData data;
 	if (a == Tsint)
 	{
@@ -147,6 +161,10 @@ TData Tree::SemGetDataType(int a)
 //занесение идентификатора a в таблицу с типом t
 void Tree::SemIncludeVar(TypeLex a, DATA_TYPE dt)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	if (DupControl(Cur, a))
 		sc->PrintError("Повторное описание идентификатора ", a);
 	Tree *v;
@@ -177,6 +195,10 @@ void Tree::SemIncludeVar(TypeLex a, DATA_TYPE dt)
 //
 Tree *Tree::SemIncludeFunct(TypeLex a, DATA_TYPE dt)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	if (DupControl(Cur, a))
 		sc->PrintError("Повторное описание идентификатора ", a);
 	Tree *v;
@@ -200,6 +222,10 @@ Tree *Tree::SemIncludeFunct(TypeLex a, DATA_TYPE dt)
 //
 Tree *Tree::SemIncludeBlock()
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Tree *v;
 	Node b;
 	memcpy(&b.id, &"", 2);
@@ -222,6 +248,10 @@ Tree *Tree::SemIncludeBlock()
 //Вычисления типа и результата операции
 TData Tree::SemResultOperation(TData t1, TData t2, int op)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	TData result;
 	switch (op)
 	{
@@ -690,6 +720,10 @@ TData Tree::SemResultOperation(TData t1, TData t2, int op)
 // установить число формальных параметров n для функции по адресу Addr
 void Tree::SemSetParam(Tree* Addr, int num)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Addr->n->param = num;
 }
 
@@ -697,6 +731,10 @@ void Tree::SemSetParam(Tree* Addr, int num)
 // n для функции по адресу Addr
 void Tree::SemControlParam(Tree *Addr, int num)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	if (num != Addr->n->param)
 		sc->PrintError("Неверное число параметров у функции ", Addr->n->id);
 }
@@ -705,6 +743,10 @@ void Tree::SemControlParam(Tree *Addr, int num)
 //и вернуть ссылку на соответствующий элемент дерева
 Tree *Tree::SemGetVar(TypeLex a)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Tree *v = FindUp(Cur, a);
 	if (v == NULL)
 		sc->PrintError("Отсутствует описание идентификатора ", a);
@@ -717,6 +759,10 @@ Tree *Tree::SemGetVar(TypeLex a)
 //и вернуть ссылку на соответствующий элемент дерева.
 Tree *Tree::SemGetFunct(TypeLex a)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Tree *v = FindUp(Cur, a);
 	if (v == NULL)
 		sc->PrintError("Отсутствует описание функции ", a);
@@ -729,6 +775,10 @@ Tree *Tree::SemGetFunct(TypeLex a)
 //Поиск осуществляется вверх от вершины Addr.
 int Tree::DupControl(Tree *Addr, TypeLex a)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	if (FindUpOneLevel(Addr, a) == NULL)
 		return 0;
 	return 1;
@@ -737,12 +787,20 @@ int Tree::DupControl(Tree *Addr, TypeLex a)
 //Получить тип
 TData Tree::SemGetType(Tree *Addr)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	return Addr->n->data;
 }
 
 //Удалить поддерево
 void Tree::SubtreeRemoval(Tree* addr)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	if (addr == NULL)
 		return;
 	if (addr->Left != NULL)
@@ -759,18 +817,30 @@ void Tree::SubtreeRemoval(Tree* addr)
 //Получить позицию
 int Tree::GetPosition(Tree* addr)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	return addr->n->position;
 }
 
 //Запомнить позицию
 void Tree::PutPosition(Tree* addr, int pos)
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	addr->n->position = pos;
 }
 
 //Удалить блок
 void Tree::DeleteBlock()
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Tree* v = Cur->Up;
 	SubtreeRemoval(Cur);
 	Cur = v;
@@ -780,6 +850,10 @@ void Tree::DeleteBlock()
 //Скопировать функцию
 Tree* Tree::CopyFunc()
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Tree* vLeft = Cur->Left;
 	Cur->SetLeft(Cur->n);
 	Cur = Cur->Left;
@@ -796,6 +870,10 @@ Tree* Tree::CopyFunc()
 //Удаление функции
 void Tree::DeleteFunc()
 {
+	if (!flagInterpret)
+	{
+		return;
+	}
 	Cur = Cur->Up;
 	Tree* vUp = Cur->Up;
 	Tree* vLeft = Cur->Left;
@@ -808,7 +886,10 @@ void Tree::DeleteFunc()
 //Занести значение в переменную
 void Tree::SemPutValue(Tree* addr, TData t)
 {
-	
+	if (!flagInterpret)
+	{
+		return;
+	}
 	if (addr->n->typeObject == OBJ_VAR)
 	{
 		if (addr->n->data.dataType == TYPE_SHORT_INTEGER)
@@ -833,4 +914,14 @@ bool Tree::SetFlagIntr(bool f1)
 bool Tree::GetFlagIntr()
 {
 	return flagInterpret;
+}
+
+Tree* Tree::GetRight(Tree *v)
+{
+	return v->Right;
+}
+
+Tree* Tree::GetLeft(Tree* v)
+{
+	return v->Left;
 }
