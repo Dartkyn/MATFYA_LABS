@@ -32,9 +32,9 @@ private:
 	Node *n;					//информация об объекте таблицы
 	Tree *Up, *Left, *Right;	//родитель, левый и правый потомок
 	TScaner *sc;
-	static bool flagInterpret;	//флаг интерпритации
+	bool flagInterpret;	//флаг интерпритации
 public:
-	static Tree *Cur;			//текущий элемент дерева
+	Tree *Cur;			//текущий элемент дерева
 	Tree(Tree *l, Tree *r, Tree *u, Node *Data);
 	Tree();
 	~Tree();
@@ -67,10 +67,10 @@ public:
 
 	void DeleteBlock();								//Удаление блока
 
-	Tree* CopyFunc();								//Копирование функции
+	Tree* CopyFunc(Tree* addr);								//Копирование функции
 	void DeleteFunc();								//Удаление функции
 	void SemPutValue(Tree *addr, TData t);			//Поместить значение по адресу
-	bool SetFlagIntr(bool f1);								//Поместить флаг интерпритации
+	void SetFlagIntr(bool f1);								//Поместить флаг интерпритации
 	bool GetFlagIntr();								//Получить значение флага интерпритации
 	Tree *GetRight(Tree* v);								//Получить правый потомок
 	Tree* GetLeft(Tree* v);								//Получить левый потомок

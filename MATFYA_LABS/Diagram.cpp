@@ -34,19 +34,25 @@ void Diagram::Funct()
 	TypeLex l;
 	int t, uk1, uk2, uk3;
 	TData type;
-	Tree *v;
+	Tree *v = root->GetCur();
 	uk1 = sc->GetUK();
 	uk2 = sc->GetUKS();
 	t = sc->Scaner(l);
 	if (t == Tint)
 	{
-		type = root->SemGetDataType(t);
+		if (root->GetFlagIntr())
+		{
+			type = root->SemGetDataType(t);
+		}
 		t = sc->Scaner(l);
 		if (t != Tmain)
 		{
 			sc->PrintError("Ожидался символ main", l, sc->GetUKS());
 		}
-		v = root->SemIncludeFunct(l, type.dataType);
+		if (root->GetFlagIntr())
+		{
+			v = root->SemIncludeFunct(l, type.dataType);
+		}
 		t = sc->Scaner(l);
 		if (t != TBraceOp)
 		{
@@ -62,7 +68,10 @@ void Diagram::Funct()
 
 		if (t == Tvoid)
 		{
-			type = root->SemGetDataType(t);
+			if (root->GetFlagIntr())
+			{
+				type = root->SemGetDataType(t);
+			}
 			uk1 = sc->GetUK();
 			uk2 = sc->GetUKS();
 			t = sc->Scaner(l);
@@ -70,7 +79,10 @@ void Diagram::Funct()
 			{
 				sc->PrintError("Ожидался идентификатор", l, sc->GetUKS());
 			}
-			v = root->SemIncludeFunct(l, type.dataType);
+			if (root->GetFlagIntr())
+			{
+				v = root->SemIncludeFunct(l, type.dataType);
+			}
 			t = sc->Scaner(l);
 			if (t != TBraceOp)
 			{
@@ -88,8 +100,8 @@ void Diagram::Funct()
 			root->SetFlagIntr(false);
 		}
 	Block();
-	root->SetCur(v);
 	root->SetFlagIntr(true);
+	root->SetCur(v);
 }
 
 int Diagram::Param()
@@ -98,6 +110,7 @@ int Diagram::Param()
 	TypeLex l;
 	int t, uk1, uk2,pm=0;
 	TData type;
+	type.dataType = TYPE_INTEGER;
 	uk1 = sc->GetUK();
 	uk2 = sc->GetUKS();
 	do {
@@ -106,7 +119,10 @@ int Diagram::Param()
 		{
 			sc->PrintError("Ожидался символ short или long", l, sc->GetUKS());
 		}
-		type = root->SemGetDataType(t);
+		if (root->GetFlagIntr())
+		{
+			type = root->SemGetDataType(t);
+		}
 		t = sc->Scaner(l);
 		if (t != Tint)
 		{
@@ -127,17 +143,22 @@ int Diagram::Param()
 	sc->PutUKS(uk2);
 	return pm;
 }
+
 void Diagram::Data()
 // описание данных
 {
 	TypeLex l, a;;
 	TData type, type1;
+	type.dataType = TYPE_INTEGER;
 	int t, uk1, uk2;
-	Tree* v;
+	Tree* v = root->GetCur();
 	t = sc->Scaner(l);
 	if ((t == Tsint) || (t == Tlint))
 	{
-		type = root->SemGetDataType(t);
+		if (root->GetFlagIntr())
+		{
+			type = root->SemGetDataType(t);
+		}
 		t = sc->Scaner(l);
 		if (t != Tint)
 		{
@@ -159,7 +180,10 @@ void Diagram::Data()
 			t = sc->Scaner(l);
 			if (t == TAssign)
 			{
-				v = root->SemGetVar(a);
+				if (root->GetFlagIntr())
+				{
+					v = root->SemGetVar(a);
+				}
 				Expression(type1);
 				root->SemPutValue(v, type1);
 				uk1 = sc->GetUK();
@@ -180,12 +204,16 @@ void Diagram::Block()
 {
 	TypeLex l;
 	int t, uk1, uk2;
+	Tree* vb = root->GetCur();
 	t = sc->Scaner(l);
 	if (t != TBracketOp)
 	{
 		sc->PrintError("Ожидался  символ {", l, sc->GetUKS());
 	}
-	Tree *vb = root->SemIncludeBlock();
+	if (root->GetFlagIntr())
+	{
+		vb = root->SemIncludeBlock();
+	}
 	uk1 = sc->GetUK();
 	uk2 = sc->GetUKS();
 	t = sc->Scaner(l);
@@ -222,6 +250,9 @@ void Diagram::Operator()
 	TypeLex  l, a;
 	int  t, uk1, uk2;
 	TData type;
+	Tree* v;
+	Tree* p;
+	Tree* fundot;
 	uk1 = sc->GetUK();
 	uk2 = sc->GetUKS();
 	t = sc->Scaner(l);
@@ -252,12 +283,22 @@ void Diagram::Operator()
 			{
 				sc->PrintError("Ожидался символ (", l, sc->GetUKS());
 			}
-			Tree *v = root->SemGetFunct(a);
-			Tree* p = root->GetLeft(root->GetRight(v));
+			if (root->GetFlagIntr())
+			{
+				v = root->SemGetFunct(a);
+				fundot = root->GetCur();
+				Tree* vc = root->CopyFunc(v);
+				//sc->PutUK(root->GetPosition(v));
+				//Tree* positionTree = root->GetCur();
+				//root->SetCur(v);
+				//Tree* vb = root->SemIncludeBlock();
+				root->Print();
+				//system("pause");
+				p = root->GetLeft(root->GetRight(root->GetLeft(fundot)));
+			}
 			int ct=0;
 			do
 			{
-
 				Expression(type);
 				root->SemPutValue(p, type);
 				ct++;
@@ -290,7 +331,7 @@ void Diagram::Assignment()
 {
 	TypeLex l, a;
 	TData type;
-	Tree *v;
+	Tree *v = root->GetCur();
 	int t;
 	t = sc->Scaner(l);
 	if (t != TIdent)
@@ -305,7 +346,10 @@ void Diagram::Assignment()
 	}
 	else
 	{
-		v = root->SemGetVar(a);
+		if (root->GetFlagIntr())
+		{
+			v = root->SemGetVar(a);
+		}
 		Expression(type);
 		root->SemPutValue(v, type);
 		t = sc->Scaner(l);
@@ -378,7 +422,10 @@ void Diagram::Expression(TData& type)
 	while ((t <= TNotEqual) && (t >= TMore))  //  знаки  сравнения  стоят  подряд
 	{
 		Calc(type1);
-		type = root->SemResultOperation(type, type1, t);
+		if (root->GetFlagIntr())
+		{
+			type = root->SemResultOperation(type, type1, t);
+		}
 		uk1 = sc->GetUK();
 		uk2 = sc->GetUKS();
 		t = sc->Scaner(l);
@@ -400,7 +447,10 @@ void Diagram::Calc(TData& type)
 	while ((t == TShiftL) || (t == TShiftR))
 	{
 		Arithmetic(type1);
-		type = root->SemResultOperation(type, type1, t);
+		if (root->GetFlagIntr())
+		{
+			type = root->SemResultOperation(type, type1, t);
+		}
 		uk1 = sc->GetUK();
 		uk2 = sc->GetUKS();
 		t = sc->Scaner(l);
@@ -422,7 +472,10 @@ void Diagram::Arithmetic(TData& type)
 	while ((t == TAdd) || (t == TSub))
 	{
 		Mul_div(type1);
-		type = root->SemResultOperation(type, type1, t);
+		if (root->GetFlagIntr())
+		{
+			type = root->SemResultOperation(type, type1, t);
+		}
 		uk1 = sc->GetUK();
 		uk2 = sc->GetUKS();
 		t = sc->Scaner(l);
@@ -444,7 +497,10 @@ void Diagram::Mul_div(TData& type)
 	while ((t == TDiv) || (t == TMult))
 	{
 		Bracket(type1);
-		type = root->SemResultOperation(type, type1, t);
+		if (root->GetFlagIntr())
+		{
+			type = root->SemResultOperation(type, type1, t);
+		}
 		uk1 = sc->GetUK();
 		uk2 = sc->GetUKS();
 		t = sc->Scaner(l);
@@ -537,24 +593,17 @@ void Diagram::Bracket(TData& type)
 	{
 		if (t == TIdent)
 		{
-			Tree* v = root->SemGetVar(l);
-			type = root->SemGetType(v);
+			if (root->GetFlagIntr())
+			{
+				Tree* v = root->SemGetVar(l);
+				type = root->SemGetType(v);
+			}
 		}
 		else
 		{
 			sc->PrintError("ожидался  идентификатор или константа, или выражение", l, sc->GetUKS());
 		}
 	}
-}
-
-bool Diagram::SetFlagIntr()
-{
-	return true;
-}
-
-bool Diagram::GetFlagIntr()
-{
-	return false;
 }
 
 long int Diagram::PwrHex(int count)

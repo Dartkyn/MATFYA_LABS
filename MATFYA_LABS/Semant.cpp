@@ -108,7 +108,7 @@ void Tree::Print(void)
 		Right->Print();
 }
 
-Tree *Tree::Cur = (Tree*)NULL;
+//Tree *Tree::Cur = (Tree*)NULL;
 
 //установить текущий узел дерева
 void Tree::SetCur(Tree *a)
@@ -123,20 +123,12 @@ void Tree::SetCur(Tree *a)
 //получить значение текущего узла дерева
 Tree *Tree::GetCur(void)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
 	return Cur;
 }
 
 //получить тип значения
 TData Tree::SemGetDataType(int a)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
 	TData data;
 	if (a == Tsint)
 	{
@@ -195,10 +187,7 @@ void Tree::SemIncludeVar(TypeLex a, DATA_TYPE dt)
 //
 Tree *Tree::SemIncludeFunct(TypeLex a, DATA_TYPE dt)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
+
 	if (DupControl(Cur, a))
 		sc->PrintError("Повторное описание идентификатора ", a);
 	Tree *v;
@@ -222,10 +211,7 @@ Tree *Tree::SemIncludeFunct(TypeLex a, DATA_TYPE dt)
 //
 Tree *Tree::SemIncludeBlock()
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
+
 	Tree *v;
 	Node b;
 	memcpy(&b.id, &"", 2);
@@ -248,10 +234,7 @@ Tree *Tree::SemIncludeBlock()
 //Вычисления типа и результата операции
 TData Tree::SemResultOperation(TData t1, TData t2, int op)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
+
 	TData result;
 	switch (op)
 	{
@@ -743,10 +726,7 @@ void Tree::SemControlParam(Tree *Addr, int num)
 //и вернуть ссылку на соответствующий элемент дерева
 Tree *Tree::SemGetVar(TypeLex a)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
+
 	Tree *v = FindUp(Cur, a);
 	if (v == NULL)
 		sc->PrintError("Отсутствует описание идентификатора ", a);
@@ -759,10 +739,6 @@ Tree *Tree::SemGetVar(TypeLex a)
 //и вернуть ссылку на соответствующий элемент дерева.
 Tree *Tree::SemGetFunct(TypeLex a)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
 	Tree *v = FindUp(Cur, a);
 	if (v == NULL)
 		sc->PrintError("Отсутствует описание функции ", a);
@@ -775,10 +751,7 @@ Tree *Tree::SemGetFunct(TypeLex a)
 //Поиск осуществляется вверх от вершины Addr.
 int Tree::DupControl(Tree *Addr, TypeLex a)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
+
 	if (FindUpOneLevel(Addr, a) == NULL)
 		return 0;
 	return 1;
@@ -787,10 +760,7 @@ int Tree::DupControl(Tree *Addr, TypeLex a)
 //Получить тип
 TData Tree::SemGetType(Tree *Addr)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
+
 	return Addr->n->data;
 }
 
@@ -817,10 +787,7 @@ void Tree::SubtreeRemoval(Tree* addr)
 //Получить позицию
 int Tree::GetPosition(Tree* addr)
 {
-	if (!flagInterpret)
-	{
-		return;
-	}
+
 	return addr->n->position;
 }
 
@@ -848,13 +815,21 @@ void Tree::DeleteBlock()
 }
 
 //Скопировать функцию
-Tree* Tree::CopyFunc()
+Tree* Tree::CopyFunc(Tree* addr)
 {
-	if (!flagInterpret)
+	Tree* v;
+	Cur->SetLeft(addr->n);
+	v = Cur->Left;
+	v->SetRight(addr->Right->n);
+	v = v->Right;
+	addr = addr->Right;
+	while (addr->Left != NULL)
 	{
-		return;
+		v->SetLeft(addr->Left->n);
+		v = v->Left;
+		addr = addr->Left;
 	}
-	Tree* vLeft = Cur->Left;
+	/*Tree* vLeft = Cur->Left;
 	Cur->SetLeft(Cur->n);
 	Cur = Cur->Left;
 	Node d;
@@ -862,8 +837,8 @@ Tree* Tree::CopyFunc()
 	d.typeObject = EMPT;
 	Cur->SetRight(&d);
 	Cur->Left = vLeft;
-	Tree* v = Cur;
 	Cur = Cur->Right;
+	*/
 	return v;
 }
 
@@ -905,7 +880,7 @@ void Tree::SemPutValue(Tree* addr, TData t)
 }
 
 //Поместить значение флага интерпритации
-bool Tree::SetFlagIntr(bool f1)
+void Tree::SetFlagIntr(bool f1)
 {
 	flagInterpret = f1;
 }
