@@ -818,10 +818,8 @@ void Tree::DeleteBlock()
 Tree* Tree::CopyFunc(Tree* addr)
 {
 	Tree* v;
-	Cur->SetLeft(addr->n);
-	v = Cur->Left;
-	v->SetRight(addr->Right->n);
-	v = v->Right;
+	Cur->SetRight(addr->Right->n);
+	v = Cur->Right;
 	addr = addr->Right;
 	while (addr->Left != NULL)
 	{
@@ -829,16 +827,6 @@ Tree* Tree::CopyFunc(Tree* addr)
 		v = v->Left;
 		addr = addr->Left;
 	}
-	/*Tree* vLeft = Cur->Left;
-	Cur->SetLeft(Cur->n);
-	Cur = Cur->Left;
-	Node d;
-	memcpy(&d.id, &"", 2);
-	d.typeObject = EMPT;
-	Cur->SetRight(&d);
-	Cur->Left = vLeft;
-	Cur = Cur->Right;
-	*/
 	return v;
 }
 

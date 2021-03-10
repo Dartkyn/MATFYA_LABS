@@ -248,16 +248,17 @@ void Diagram::Operator()
 // Оператор
 {
 	TypeLex  l, a;
-	int  t, uk1, uk2;
+	int  t, uk1, uk2, uk3;
 	TData type;
 	Tree* v;
 	Tree* p;
-	Tree* fundot;
+	Tree* fundot = new Tree();
+	Tree* vc = new Tree();
 	uk1 = sc->GetUK();
 	uk2 = sc->GetUKS();
 	t = sc->Scaner(l);
 	if (t == TSecolon)
-		return;  //  пустой  оператор
+		return;				//  пустой  оператор
 	if (t == Tif)
 	{
 		sc->PutUK(uk1);
@@ -288,13 +289,7 @@ void Diagram::Operator()
 				v = root->SemGetFunct(a);
 				fundot = root->GetCur();
 				Tree* vc = root->CopyFunc(v);
-				//sc->PutUK(root->GetPosition(v));
-				//Tree* positionTree = root->GetCur();
-				//root->SetCur(v);
-				//Tree* vb = root->SemIncludeBlock();
-				root->Print();
-				//system("pause");
-				p = root->GetLeft(root->GetRight(root->GetLeft(fundot)));
+				p = root->GetLeft(root->GetRight(fundot));
 			}
 			int ct=0;
 			do
@@ -302,7 +297,10 @@ void Diagram::Operator()
 				Expression(type);
 				root->SemPutValue(p, type);
 				ct++;
-				p = root->GetLeft(p);
+				if (root->GetLeft(p)!=NULL)
+				{
+					p = root->GetLeft(p);
+				}
 				uk1 = sc->GetUK();
 				uk2 = sc->GetUKS();
 				t = sc->Scaner(l);
@@ -312,6 +310,12 @@ void Diagram::Operator()
 			{
 				sc->PrintError("Ожидался символ )", l, sc->GetUKS());
 			}
+			uk3 = sc->GetUK();
+			sc->PutUK(root->GetPosition(v));
+			root->SetCur(p);
+			Block();
+			root->SetCur(fundot);
+			sc->PutUK(uk3);
 			t = sc->Scaner(l);
 			if (t != TSecolon)
 			{
@@ -378,13 +382,13 @@ void Diagram::If()
 		sc->PrintError("Ожидался  символ (", l, sc->GetUKS());
 	}
 	Expression(type);
-	if (root->GetFlagIntr()&&type.dataValue.dataAsSInt!=0)
+	if (root->GetFlagIntr()&&type.dataValue.dataAsSInt > 0)
 	{
-		root->SetFlagIntr(false);
+		root->SetFlagIntr(true);
 	}
 	else
 	{
-		root->SetFlagIntr(true);
+		root->SetFlagIntr(false);
 	}
 	t = sc->Scaner(l);
 	if (t != TBraceCl)

@@ -16,4 +16,26 @@ int main()
 	f = g / 1283;
 	a = (r - g + f) / f;
 	fun(a, r);
+	short int s = 0x2AF;
+	f = s;
+	if(s > 0)
+		{
+		short int shift1 = 10;
+		short int shift2 = 2;
+		shift2 = shift1>>shift2;
+		shift1 = 2<<shift2;
+		}
+	else
+		{
+		short int i = 0x46BD;
+		long int k = 987654321;
+		i = a > f;
+		i = a >= f;
+		i = a == f;
+		i = a == a;
+		i = a < f;
+		i = a <= f;
+		i = a != f;
+		i = a !=a;
+		}
 }
