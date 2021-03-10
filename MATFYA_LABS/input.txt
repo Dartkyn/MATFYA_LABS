@@ -1,41 +1,66 @@
-void fun(short int arg1, long int arg2)
+short int m = 10;
+void facto(short int n) 
 {
-	short int o = arg1;
-	arg1 = arg2;
-	long int s = 0x2AF;
-	o = s + 2 * 2;
-} 
-int main()
-{
-	short int a;
-	short int f = 2568;
-	a = (f +  4) / 3;
-	long int  g = 123456789;
-	long int r = g / 6;
-	r = a + r;
-	f = g / 1283;
-	a = (r - g + f) / f;
-	fun(a, r);
-	short int s = 0x2AF;
-	f = s;
-	if(s > 0)
+        if (n <= 0)
 		{
-		short int shift1 = 10;
-		short int shift2 = 2;
-		shift2 = shift1>>shift2;
-		shift1 = 2<<shift2;
+			m = 1;
+		}
+        else
+        {
+			facto(n - 1);
+			m = n*m;
+        }
+}
+void funif(short int funvar)
+{
+	if(funvar > 0)
+		{
+		short int log1 = funvar - 6;
+		if(log1 < 6)
+			{
+				short int var = 1;
+			}
+		else
+			{
+			long int var2 = 11111111;
+			}
 		}
 	else
 		{
-		short int i = 0x46BD;
-		long int k = 987654321;
-		i = a > f;
-		i = a >= f;
-		i = a == f;
-		i = a == a;
-		i = a < f;
-		i = a <= f;
-		i = a != f;
-		i = a !=a;
+		if((funvar + 5) > 0)
+			{	
+			short int qwer = 1234;
+			}
+		else
+			{
+			funvar = funvar - 10;
+			}
 		}
+}
+void fun(short int arg)
+{
+	if(arg > 5)
+	{
+		funif(arg);
+	}
+	else
+	{
+		facto(arg);
+	}	
+}
+int main()
+{
+	short int var1 = 6;
+	fun(var1);
+	short int asd = 7;
+	fun(var1 - asd);
+	long int sad = 78945612;
+	short int qwer = m;
+	fun(qwer + asd);
+	long int pop = sad + qwer;
+	long int shift = m << asd;
+	sad = pop / shift;
+	fun(100 - m);
+	fun(32 >> (var1 / 3));
+	pop = (sad / shift + m * asd) / var1  - m;
 }

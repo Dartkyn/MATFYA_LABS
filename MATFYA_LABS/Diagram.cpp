@@ -250,8 +250,8 @@ void Diagram::Operator()
 	TypeLex  l, a;
 	int  t, uk1, uk2, uk3;
 	TData type;
-	Tree* v;
-	Tree* p;
+	Tree* v = new Tree();
+	Tree* p = new Tree();
 	Tree* fundot = new Tree();
 	Tree* vc = new Tree();
 	uk1 = sc->GetUK();
@@ -310,12 +310,15 @@ void Diagram::Operator()
 			{
 				sc->PrintError("Ожидался символ )", l, sc->GetUKS());
 			}
-			uk3 = sc->GetUK();
-			sc->PutUK(root->GetPosition(v));
-			root->SetCur(p);
-			Block();
-			root->SetCur(fundot);
-			sc->PutUK(uk3);
+			if (root->GetFlagIntr())
+			{
+				uk3 = sc->GetUK();
+				sc->PutUK(root->GetPosition(v));
+				root->SetCur(p);
+				Block();
+				root->SetCur(fundot);
+				sc->PutUK(uk3);
+			}
 			t = sc->Scaner(l);
 			if (t != TSecolon)
 			{

@@ -1,11 +1,11 @@
 ﻿  Diagram.cpp
 E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(177,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(271,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(345,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(559,33): warning C4244: =: преобразование "long" в "short", возможна потеря данных
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(566,33): warning C4244: =: преобразование "long" в "short", возможна потеря данных
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(582,37): warning C4244: =: преобразование "long" в "short", возможна потеря данных
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(520,15): warning C4101: uk2: неиспользованная локальная переменная
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(519,14): warning C4101: l1: неиспользованная локальная переменная
-E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(520,10): warning C4101: uk1: неиспользованная локальная переменная
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(348,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(562,33): warning C4244: =: преобразование "long" в "short", возможна потеря данных
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(569,33): warning C4244: =: преобразование "long" в "short", возможна потеря данных
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(585,37): warning C4244: =: преобразование "long" в "short", возможна потеря данных
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(523,15): warning C4101: uk2: неиспользованная локальная переменная
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(522,14): warning C4101: l1: неиспользованная локальная переменная
+E:\Projects\MATFYA_LABS\MATFYA_LABS\Diagram.cpp(523,10): warning C4101: uk1: неиспользованная локальная переменная
   MATFYA_LABS.vcxproj -> E:\Projects\MATFYA_LABS\Debug\MATFYA_LABS.exe
